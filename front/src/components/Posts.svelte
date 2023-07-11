@@ -5,7 +5,8 @@
 	export let posts: IPost[];
 </script>
 
-<section>
+<section class="">
+	<h1>Posts</h1>
 	{#each posts as post, i}
 		<Post post={post} />
 	{/each}
