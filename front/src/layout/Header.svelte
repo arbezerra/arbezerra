@@ -2,6 +2,6 @@
     import Navbar from "./Navbar.svelte";
 </script>
 
-<header class="bg-white">
+<header>
 	<Navbar />
 </header>
