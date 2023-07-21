@@ -46,7 +46,7 @@ const PostController = {
       .limit(size)
       .orderBy("date", "desc");
     const total = pool<{ total: number }>("posts")
-      .count("id", { as: "total" })
+      .count("posts.id", { as: "total" })
       .join("categories", "categories.id", "category_id")
       .where("categories.slug", req.params.category)
       .first();
