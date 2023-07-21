@@ -10,14 +10,14 @@ export default {
 					light: colors.slate[100],
 					dark: colors.slate[900]
 				},
-        neutral: {
-          light: colors.slate[400],
-          dark: colors.slate[500],
-        },
-        primary: {
-          light: colors.indigo[600],
-          dark: colors.indigo[800],
-        }
+				neutral: {
+					light: colors.slate[400],
+					dark: colors.slate[500]
+				},
+				primary: {
+					light: colors.indigo[600],
+					dark: colors.indigo[800]
+				}
 			}
 		}
 	},
