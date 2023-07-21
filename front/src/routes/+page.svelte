@@ -5,34 +5,8 @@
 	import type { IPost } from '../interfaces/Post';
 	import type { IProject } from '../interfaces/Project';
 
-	const posts: IPost[] = [
-		{
-			id: '1',
-			slug: 'hello-world',
-			title: 'First Post',
-			content: 'Hello world!',
-			summary: 'Summary',
-			date: new Date(),
-			category: {
-				id: '1',
-				name: 'Teste',
-				slug: 'test'
-			}
-		},
-		{
-			id: '2',
-			slug: 'hello-world2',
-			title: 'Second Post',
-			content: 'Hello world 2!',
-			summary: 'Summary 2',
-			date: new Date(),
-			category: {
-				id: '1',
-				name: 'Teste',
-				slug: 'test'
-			}
-		}
-	];
+	export let data;
+	const posts: IPost[] = data.posts?.items || [];
 
 	const projects: IProject[] = [
 		{

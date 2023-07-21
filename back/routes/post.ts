@@ -20,6 +20,11 @@ router.get(
   validate(PostController.validate(ValidateMethod.SLUG)),
   PostController.slug
 );
+router.get(
+  "/category/:category",
+  validate(PostController.validate(ValidateMethod.PAGINATE)),
+  PostController.by_category
+);
 router.post(
   "/",
   isLoggedIn(),

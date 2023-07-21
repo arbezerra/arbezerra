@@ -6,6 +6,10 @@ export type IPost = {
     title: string;
     content: string;
     summary: string;
-    date: Date;
-    category: ICategory;
+    date: string;
+    category: string;
+    category_slug: string;
+
+    author_id: string;
+    category_id: string;
 }

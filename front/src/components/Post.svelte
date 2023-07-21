@@ -9,7 +9,7 @@
 <article>
 	<div>
 		<small class="text-xs mr-2">{post.date.toLocaleString()}</small>
-		<a href="/category/{post.category.slug}"><Badge text={post.category.name} /></a>
+		<a href="/category/{post.category_slug}"><Badge text={post.category} /></a>
 	</div>
 	<a href="/post/{post.slug}">
 		<h1 class="{short ? 'text-2xl' : 'text-4xl'} font-bold mb-2">{post.title}</h1>
