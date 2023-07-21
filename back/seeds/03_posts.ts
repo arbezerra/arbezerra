@@ -3,7 +3,6 @@ import Category from "../models/category";
 import User from "../models/user";
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex("posts").del();
   const user = await knex<User>("users").first();
   const category = await knex<Category>("categories").first();
   await knex("posts").insert([
