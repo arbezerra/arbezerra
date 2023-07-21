@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { ICategory } from '../interfaces/Category';
 	import type { IPost } from '../interfaces/Post';
-	import Badge from './Badge.svelte';
 	import Post from './Post.svelte';
 
 	export let category: ICategory | undefined = undefined;
