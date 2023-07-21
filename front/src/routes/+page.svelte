@@ -7,26 +7,7 @@
 
 	export let data;
 	const posts: IPost[] = data.posts?.items || [];
-
-	const projects: IProject[] = [
-		{
-			id: '1',
-			title: 'Title',
-			description: 'Description',
-			href: '/',
-			tags: [
-				{ id: '1', name: 'Teste', slug: 'test' },
-				{ id: '2', name: 'Teste 2', slug: 'test2' }
-			]
-		},
-		{
-			id: '2',
-			title: 'Title',
-			description: 'Description',
-			href: '/',
-			tags: [{ id: '1', name: 'Teste', slug: 'test' }]
-		}
-	];
+	const projects: IProject[] = data.projects?.items || [];
 </script>
 
 <Hero />
