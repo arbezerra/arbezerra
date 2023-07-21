@@ -1,6 +1,6 @@
 <script lang="ts">
 	let opened = false;
-	const routes = [{ path: '/about', title: 'About' }];
+	const routes = [{ path: '/posts', title: 'Blog' }];
 </script>
 
 <nav class="text-default-light bg-slate-800 w-full top-0 z-20">

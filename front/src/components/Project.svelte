@@ -5,7 +5,7 @@
 	export let project: IProject;
 </script>
 
-<article class="text-default-light bg-slate-800 rounded shadow-lg p-4">
+<article>
 	<h2 class="text-2xl font-bold mb-2">{project.title}</h2>
 	<p class="mb-4">{project.description}</p>
 	<div>

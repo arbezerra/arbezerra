@@ -6,7 +6,32 @@
 	import type { IProject } from '../interfaces/Project';
 
 	const posts: IPost[] = [
-		{ id: '1', title: 'First Post', content: 'Hello world!', date: '2023-07-11' }
+		{
+			id: '1',
+			slug: 'hello-world',
+			title: 'First Post',
+			content: 'Hello world!',
+			summary: 'Summary',
+			date: new Date(),
+			category: {
+				id: '1',
+				name: 'Teste',
+				slug: 'test'
+			}
+		},
+		{
+			id: '2',
+			slug: 'hello-world2',
+			title: 'Second Post',
+			content: 'Hello world 2!',
+			summary: 'Summary 2',
+			date: new Date(),
+			category: {
+				id: '1',
+				name: 'Teste',
+				slug: 'test'
+			}
+		}
 	];
 
 	const projects: IProject[] = [
@@ -30,8 +55,6 @@
 	];
 </script>
 
-<main class="container mx-auto">
-	<Hero />
-	<Projects {projects} />
-	<Posts {posts} />
-</main>
+<Hero />
+<Projects {projects} />
+<Posts {posts} />
