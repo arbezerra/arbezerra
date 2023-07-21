@@ -47,6 +47,8 @@ const PostController = {
       .orderBy("date", "desc");
     const total = pool<{ total: number }>("posts")
       .count("id", { as: "total" })
+      .join("categories", "categories.id", "category_id")
+      .where("categories.slug", req.params.category)
       .first();
     return res.status(200).json({
       items: await items,
