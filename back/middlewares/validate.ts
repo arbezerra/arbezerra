@@ -8,6 +8,7 @@ export enum ValidateMethod {
   SLUG,
   LOGIN,
   PAGINATE,
+  TAG,
 }
 
 const validate = (schema: AnyZodObject) => {

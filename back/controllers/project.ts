@@ -4,20 +4,27 @@ import Project from "../models/project";
 import { ValidateMethod } from "../middlewares/validate";
 import { z } from "zod";
 import { v4 as uuid4 } from "uuid";
+import Tag from "../models/tag";
 
 const ProjectController = {
   index: async (req: Request, res: Response) => {
     const page = parseInt(req.query.page as string) || 0;
     const size = parseInt(req.query.size as string) || 5;
-    const items = pool<Project>("projects")
+    const items = await pool<Project>("projects")
       .offset(page * size)
       .limit(size)
       .orderBy("title", "asc");
     const total = pool<{ total: number }>("projects")
       .count("id", { as: "total" })
       .first();
+    items.map(async (item) => {
+      item.tags = await pool<Tag>("tags")
+        .select("tags.*")
+        .join("projects_tags", "projects_tags.tag_id", "tags.id")
+        .where("project_id", item.id);
+    });
     return res.status(200).json({
-      items: await items,
+      items: items,
       paginate: {
         page,
         size,
@@ -25,41 +32,45 @@ const ProjectController = {
       },
     });
   },
-  // by_tag: async (req: Request, res: Response) => {
-  //   const page = parseInt(req.query.page as string) || 0;
-  //   const size = parseInt(req.query.size as string) || 5;
-  //   const items = pool<Project>("projects")
-  //     .where("categories.slug", req.params.category)
-  //     .offset(page * size)
-  //     .limit(size)
-  //     .orderBy("title", "asc");
-  //   const total = pool<{ total: number }>("projects")
-  //     .count("id", { as: "total" })
-  //     .first();
-  //   return res.status(200).json({
-  //     items: await items,
-  //     paginate: {
-  //       page,
-  //       size,
-  //       total: (await total)?.total,
-  //     },
-  //   });
-  // },
   show: async (req: Request, res: Response) => {
     const item = await pool<Project>("projects")
       .where("id", req.params.id)
       .first();
+    if (item) {
+      item.tags = await pool<Tag>("tags")
+        .select("tags.*")
+        .join("projects_tags", "projects_tags.tag_id", "tags.id")
+        .where("project_id", item.id);
+    }
     return res.status(200).json(item);
   },
   slug: async (req: Request, res: Response) => {
     const item = await pool<Project>("projects")
       .where("projects.slug", req.params.slug)
       .first();
+    if (item) {
+      item.tags = await pool<Tag>("tags")
+        .select("tags.*")
+        .join("projects_tags", "projects_tags.tag_id", "tags.id")
+        .where("project_id", item.id);
+    }
     return res.status(200).json(item);
   },
   store: async (req: Request, res: Response) => {
     req.body.id = uuid4();
     const item = await pool<Project>("projects").insert(req.body, "id");
+    return res.status(200).json(item);
+  },
+  tag: async (req: Request, res: Response) => {
+    let item;
+    if(req.body.active){
+      item = await pool("projects_tags").insert({project_id: req.params.id, tag_id: req.body.tag_id}, "id").onConflict(["tag_id", "project_id"]).ignore;
+    } else {
+      item = await pool("projects_tags")
+        .where("project_id", req.params.id)
+        .where("tag_id", req.body.tag_id)
+        .delete();
+      }
     return res.status(200).json(item);
   },
   update: async (req: Request, res: Response) => {
@@ -69,7 +80,9 @@ const ProjectController = {
     return res.status(200).json(item);
   },
   delete: async (req: Request, res: Response) => {
-    const item = await pool<Project>("projects").where("id", req.params.id).delete();
+    const item = await pool<Project>("projects")
+      .where("id", req.params.id)
+      .delete();
     return res.status(200).json(item);
   },
   validate: (method: ValidateMethod) => {
@@ -88,6 +101,16 @@ const ProjectController = {
             title: z.string(),
             description: z.string(),
             href: z.string().url(),
+          }),
+          params: z.object({
+            id: z.string().uuid(),
+          }),
+        });
+      case ValidateMethod.TAG:
+        return z.object({
+          body: z.object({
+            tag_id: z.string(),
+            active: z.coerce.boolean(),
           }),
           params: z.object({
             id: z.string().uuid(),
@@ -114,9 +137,7 @@ const ProjectController = {
               .pipe(z.number().positive()),
           }),
           params: z.object({
-            tag: z
-              .string()
-              .optional(),
+            tag: z.string().optional(),
           }),
         });
       default:
