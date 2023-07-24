@@ -24,16 +24,7 @@ describe("ProjectsTags", () => {
     const tag = await pool<Tag>("tags").first();
     return request(app)
       .put(`/project/tag/${project!.id}`)
-      .send({ tag_id: tag!.id, active: true })
-      .set({ Authorization: `Bearer ${token}` })
-      .expect(200);
-  });
-
-  test("PUT /project/tag/:id untag 200", async () => {
-    const project_tag = await pool("projects_tags").first();
-    return request(app)
-      .put(`/project/tag/${project_tag!.project_id}`)
-      .send({ tag_id: project_tag!.tag_id, active: false })
+      .send({ tags: [tag!.id] })
       .set({ Authorization: `Bearer ${token}` })
       .expect(200);
   });

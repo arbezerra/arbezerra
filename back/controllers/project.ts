@@ -62,16 +62,12 @@ const ProjectController = {
     return res.status(200).json(item);
   },
   tag: async (req: Request, res: Response) => {
-    let item;
-    if(req.body.active){
-      item = await pool("projects_tags").insert({project_id: req.params.id, tag_id: req.body.tag_id}, "id").onConflict(["tag_id", "project_id"]).ignore;
-    } else {
-      item = await pool("projects_tags")
-        .where("project_id", req.params.id)
-        .where("tag_id", req.body.tag_id)
-        .delete();
-      }
-    return res.status(200).json(item);
+    await pool("projects_tags").where("project_id", req.params.id).delete();
+    const items = await pool("projects_tags").insert(
+      req.body.tags.map((t: string) => ({ project_id: req.params.id, tag_id: t })),
+      ["project_id", "tag_id"]
+    );
+    return res.status(200).json(items);
   },
   update: async (req: Request, res: Response) => {
     const item = await pool<Project>("projects")
@@ -109,8 +105,7 @@ const ProjectController = {
       case ValidateMethod.TAG:
         return z.object({
           body: z.object({
-            tag_id: z.string(),
-            active: z.coerce.boolean(),
+            tags: z.array(z.string()),
           }),
           params: z.object({
             id: z.string().uuid(),
