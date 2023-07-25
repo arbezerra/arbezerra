@@ -12,7 +12,7 @@ const config: { [key: string]: Knex.Config } = {
   },
 
   development: {
-    client: "mysql2",
+    client: "pg",
     connection: {
       host: process.env.DB_HOST,
       database: process.env.DB_NAME,
@@ -26,7 +26,7 @@ const config: { [key: string]: Knex.Config } = {
   },
 
   staging: {
-    client: "mysql2",
+    client: "pg",
     connection: {
       host: process.env.DB_HOST,
       database: process.env.DB_NAME,
@@ -40,7 +40,7 @@ const config: { [key: string]: Knex.Config } = {
   },
 
   production: {
-    client: "mysql2",
+    client: "pg",
     connection: {
       host: process.env.DB_HOST,
       database: process.env.DB_NAME,

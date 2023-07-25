@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import { config } from '../../config';
 
 export const actions: Actions = {
 	default: async ({ request, cookies}) => {
@@ -9,7 +10,7 @@ export const actions: Actions = {
 			return { missing: true, email: data.get('email') };
 		}
 
-		const response = await fetch(`http://localhost:8000/auth`, {
+		const response = await fetch(`${config.apiURL}/auth`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

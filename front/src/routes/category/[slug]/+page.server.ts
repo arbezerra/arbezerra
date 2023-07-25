@@ -1,16 +1,17 @@
+import { config } from '../../../config';
 import type { ICategory } from '../../../interfaces/Category';
 import type { IPost } from '../../../interfaces/Post';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	try {
-		const response = await fetch(`http://localhost:8000/post/category/${params.slug}`, {
+		const response = await fetch(`${config.apiURL}/post/category/${params.slug}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
-		const response2 = await fetch(`http://localhost:8000/category/slug/${params.slug}`, {
+		const response2 = await fetch(`${config.apiURL}/category/slug/${params.slug}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'

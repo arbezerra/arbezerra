@@ -1,16 +1,17 @@
+import { config } from '../config';
 import type { IPost } from '../interfaces/Post';
 import type { IProject } from '../interfaces/Project';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	try {
-		const response = await fetch('http://localhost:8000/post', {
+		const response = await fetch(`${config.apiURL}/post`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
-		const response2 = await fetch('http://localhost:8000/project', {
+		const response2 = await fetch(`${config.apiURL}/project`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
