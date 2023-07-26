@@ -10,6 +10,7 @@
 			<div class="lg:hidden">
 				<button
 					class="outline-none p-2 rounded-md focus:border-default-light focus:border"
+					aria-label="Menu"
 					on:click={() => (opened = !opened)}
 				>
 					{#if opened}

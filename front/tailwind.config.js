@@ -11,8 +11,8 @@ export default {
 					dark: colors.slate[900]
 				},
 				neutral: {
-					light: colors.slate[400],
-					dark: colors.slate[500]
+					light: colors.slate[300],
+					dark: colors.slate[600]
 				},
 				primary: {
 					light: colors.indigo[600],

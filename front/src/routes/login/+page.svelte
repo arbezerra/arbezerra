@@ -4,6 +4,11 @@
 	export let form: ActionData;
 </script>
 
+<svelte:head>
+	<title>Login</title>
+    <meta name="description" content="Login page." />
+</svelte:head>
+
 <div class="flex flex-col justify-center">
 	<div class="sm:mx-auto sm:w-full sm:max-w-sm">
 		<h2 class="mt-10 text-center text-4xl font-bold leading-9 tracking-tight">Sign in</h2>

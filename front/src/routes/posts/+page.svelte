@@ -6,4 +6,9 @@
 	const posts: IPost[] = data.posts?.items || [];
 </script>
 
+<svelte:head>
+	<title>Blog</title>
+    <meta name="description" content="List of all posts." />
+</svelte:head>
+
 <Posts {posts} />

@@ -8,4 +8,9 @@
 	const posts: IPost[] = data.posts?.items || [];
 </script>
 
+<svelte:head>
+	<title>Category: {category.name}</title>
+    <meta name="description" content="List of posts by category." />
+</svelte:head>
+
 <Posts {posts} {category} />
