@@ -13,6 +13,8 @@
 	</div>
 	<a href="/post/{post.slug}">
 		<h1 class="{short ? 'text-2xl' : 'text-4xl'} font-bold mb-2">{post.title}</h1>
-		{short ? post.summary : post.content}
 	</a>
+    <div class="prose">
+        {@html short ? post.summary : post.content}
+    </div>
 </article>
