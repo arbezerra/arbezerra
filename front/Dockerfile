@@ -7,7 +7,10 @@ RUN yarn build
 
 FROM node:20 AS prod
 WORKDIR /app
-COPY --from=builder /app/build .
-COPY --from=builder /app/package.json .
+COPY package.json .
+COPY --from=builder /app/build build/
+COPY --from=builder /app/node_modules node_modules/
 ENV PORT=80
-CMD ["node", "index.js"]
+ENV BODY_SIZE_LIMIT=0
+CMD ["node", "build"]
+
