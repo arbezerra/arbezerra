@@ -1,12 +1,24 @@
 <script lang="ts">
+    import Icon from '@iconify/svelte';
 	let opened = false;
 	const routes = [{ path: '/posts', title: 'Blog' }];
+    const socials = [
+        { href: "https://github.com/arbezerra", icon: "mdi:github"},
+        { href: "https://www.linkedin.com/in/arbezerra/", icon: "mdi:linkedin"},
+    ];
 </script>
 
 <nav class="text-default-light bg-slate-800 w-full top-0 z-20">
 	<div class="items-center px-4 max-w-screen-xl mx-auto md:px-8 lg:flex">
-		<div class="flex items-center justify-between py-3 lg:py-4 lg:block">
+		<div class="flex items-center justify-between py-3 lg:py-4">
 			<a href="/"> André Landim </a>
+            <div class="flex items-center justify-center gap-4 ml-4">
+                {#each socials as social}
+                    <a href={social.href} target="_blank">
+                        <Icon icon={social.icon} />
+                    </a>
+                {/each}
+            </div>
 			<div class="lg:hidden">
 				<button
 					class="outline-none p-2 rounded-md focus:border-default-light focus:border"
